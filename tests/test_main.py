@@ -1,10 +1,12 @@
 import pytest
-from src.main import Product, Category
+
+from src.main import Category, Product
 
 
 @pytest.fixture
 def sample_product():
     return Product("Test Product", "Test Description", 100.0, 5)
+
 
 @pytest.fixture
 def sample_products():
@@ -14,9 +16,11 @@ def sample_products():
         Product("Product 3", "Description 3", 120.0, 8)
     ]
 
+
 @pytest.fixture
 def sample_category(sample_products):
     return Category("Test Category", "Test Category Description", sample_products)
+
 
 def test_product_initialization(sample_product):
     assert sample_product.name == "Test Product"
@@ -24,16 +28,18 @@ def test_product_initialization(sample_product):
     assert sample_product.price == 100.0
     assert sample_product.quantity == 5
 
+
 def test_category_initialization(sample_category, sample_products):
     assert sample_category.name == "Test Category"
     assert sample_category.description == "Test Category Description"
     assert sample_category.products == sample_products
 
+
 def test_category_product_count(sample_category):
     assert len(sample_category.products) == 3
 
+
 def test_category_count_increment():
-    # Обнуляем счётчики для теста
     Category.category_count = 0
     Category.product_count = 0
 
