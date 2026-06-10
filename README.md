@@ -1,1 +1,2 @@
-# onlinestore1
+# Реализация систем платежей
+## Созданы классы Product и Category.
