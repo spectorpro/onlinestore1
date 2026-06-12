@@ -4,13 +4,13 @@ class Product:
     def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
         self.description = description
-        self._price = price  # приватный атрибут цены
+        self.__price = price
         self.quantity = quantity
 
     @property
     def price(self) -> float:
         """Геттер для атрибута цены"""
-        return self._price
+        return self.__price
 
     @price.setter
     def price(self, value: float):
@@ -19,14 +19,14 @@ class Product:
             print("Цена не должна быть нулевая или отрицательная")
         else:
             # Дополнительное задание: подтверждение понижения цены
-            if value < self._price:
-                response = input(f"Цена понижается с {self._price} до {value}. Подтвердить (y/n)? ")
+            if value < self.__price:
+                response = input(f"Цена понижается с {self.__price} до {value}. Подтвердить (y/n)? ")
                 if response.lower() == 'y':
-                    self._price = value
+                    self.__price = value
                 else:
                     print("Изменение цены отменено")
             else:
-                self._price = value
+                self.__price = value
 
     @classmethod
     def new_product(cls, product_data: dict, products_list: list = None):
@@ -66,7 +66,7 @@ class Category:
     def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.__products = products  # приватный атрибут списка товаров
+        self.__products = products  # Приватный атрибут списка товаров
 
         Category.category_count += 1
         Category.product_count += len(products)
@@ -79,7 +79,10 @@ class Category:
     @property
     def products(self) -> str:
         """Геттер для приватного атрибута products"""
+        if not self.__products:
+            return ""
+
         result = ""
         for product in self.__products:
             result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
-        return result
+        return result.rstrip('\n') + '\n'
