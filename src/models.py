@@ -82,7 +82,7 @@ class Category:
         if not self.__products:
             return ""
 
-        result = ""
+        result = []
         for product in self.__products:
-            result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
-        return result.rstrip('\n') + '\n'
+            result.append(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.")
+        return "\n".join(result)
