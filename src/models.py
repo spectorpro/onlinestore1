@@ -7,6 +7,12 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self) -> str:
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: 'Product') -> float:
+        return self.price * self.quantity + other.price * other.quantity
+
     @property
     def price(self) -> float:
         """Геттер для атрибута цены"""
@@ -70,6 +76,10 @@ class Category:
 
         Category.category_count += 1
         Category.product_count += len(products)
+
+    def __str__(self) -> str:
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
 
     def add_product(self, product):
         """Метод для добавления продукта в категорию"""
