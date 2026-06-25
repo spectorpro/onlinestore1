@@ -1,5 +1,6 @@
 import unittest
-from src.models import Product, Smartphone, LawnGrass, Category
+
+from src.models import Category, LawnGrass, Product, Smartphone
 
 
 class TestProduct(unittest.TestCase):

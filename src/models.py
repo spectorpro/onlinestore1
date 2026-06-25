@@ -1,3 +1,4 @@
+from typing import Optional, Any
 
 
 class Product:
@@ -38,7 +39,7 @@ class Product:
                 self.__price = value
 
     @classmethod
-    def new_product(cls, product_data: dict, products_list: list = None):
+    def new_product(cls, product_data: dict, products_list: list["Product"] | None = None,) -> Product:
         """
         Класс-метод для создания нового продукта
 
