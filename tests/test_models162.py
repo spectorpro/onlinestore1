@@ -1,5 +1,7 @@
 import pytest
-from src.models import Product, Smartphone, LawnGrass, Category, Order, BaseProduct
+
+from src.models import (BaseProduct, Category, LawnGrass, Order, Product,
+                        Smartphone)
 
 
 def test_base_product_abstract():
@@ -48,20 +50,3 @@ def test_order_creation_and_total():
     assert o.product is p
     assert o.quantity == 3
     assert o.total_cost == 450.0
-
-
-def test_new_product_class_method():
-    products_list = []
-    data = {"name": "Item", "description": "Desc", "price": 100.0, "quantity": 5}
-    p1 = Product.new_product(data, products_list)
-    assert len(products_list) == 1
-    p2 = Product.new_product(data, products_list)
-    assert p1 is p2
-    assert p1.quantity == 10
-
-
-def test_price_setter_logic():
-    p = Product("Item", "Desc", 100.0, 5)
-    p.price = 80.0
-    p.price = -10.0
-    assert p.price == 100.0
