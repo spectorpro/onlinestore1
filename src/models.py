@@ -55,6 +55,9 @@ class Product(BaseProduct, CreationLoggerMixin):
         price: float,
         quantity: int,
     ):
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
+
         self.name = name
         self.description = description
         self.__price = price
@@ -253,3 +256,11 @@ class Category(BaseShopEntity, CreationLoggerMixin):
     def __str__(self) -> str:
         total_quantity = sum(p.quantity for p in self.__products)
         return f"{self.name}, количество продуктов: {total_quantity} шт."
+
+    def middle_price(self) -> float:
+        try:
+            total = sum(p.price for p in self.__products)
+            count = len(self.__products)
+            return total / count
+        except ZeroDivisionError:
+            return 0.0
